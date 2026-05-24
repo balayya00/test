@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-mfSJSNxHjyC_h85lIjy6i.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
+  <!-- Google tag (gtag.js) -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-YLJPSYD2T1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YLJPSYD2T1');
+</script> -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tharun's Diary</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,700&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:      #0d0d0d;
+  --bg3:     #161616;
+  --bg4:     #1c1c1c;
+  --border:  rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --text-1:  #ebebeb;
+  --text-2:  #909090;
+  --text-3:  #505050;
+  --accent:  #c8a96e;
+  --star:    #f5c518;
+  --green:   #4ade80;
+  --blue:    #60a5fa;
+  --red:     #f87171;
+  --pill-rew-bg: rgba(167,139,250,0.12);
+  --pill-rew-bd: rgba(167,139,250,0.25);
+  --pill-rew-tx: #c4b5fd;
+  --hover: rgba(255,255,255,0.03);
+  --hdr:   62px;
+  --dp-bg: #141414;
+  --dp-title-color:   #c8a96e;
+  --dp-year-color:    #a78bfa;
+  --dp-year-bg:       rgba(167,139,250,0.12);
+  --dp-year-bd:       rgba(167,139,250,0.30);
+  --dp-runtime-color: #34d399;
+  --dp-runtime-bg:    rgba(52,211,153,0.10);
+  --dp-runtime-bd:    rgba(52,211,153,0.28);
+}
+
+html{scroll-behavior:auto}
+body{
+  background:var(--bg);color:var(--text-1);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;line-height:1.6;min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── Intro ── */
+#intro{
+  position:fixed;inset:0;z-index:1000;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+}
+.intro-text{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;font-weight:700;
+  font-size:clamp(42px,10vw,96px);
+  color:var(--text-1);letter-spacing:-2px;line-height:1;
+  opacity:0;transform:scale(0.92) translateY(14px);
+  animation:iShow 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
+  white-space:nowrap;
+}
+.intro-text em{color:var(--accent)}
+@keyframes iShow{to{opacity:1;transform:scale(1) translateY(0)}}
+#intro.fade-out{animation:iFade 0.55s ease forwards}
+@keyframes iFade{to{opacity:0}}
+
+/* ── Header ── */
+header{
+  position:sticky;top:0;z-index:100;height:var(--hdr);
+  background:rgba(13,13,13,0.96);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(12px,4vw,48px);gap:12px;
+  opacity:0;transition:opacity 0.5s ease;
+}
+header.vis{opacity:1}
+.logo{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;font-weight:700;font-size:clamp(18px,2.6vw,28px);
+  color:var(--text-1);letter-spacing:-0.5px;
+  user-select:none;line-height:1;white-space:nowrap;flex-shrink:0;
+}
+.logo em{color:var(--accent)}
+.hdr-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.entry-count{font-size:12px;font-weight:500;color:var(--text-2);white-space:nowrap;margin-right:4px}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:600;padding:5px 12px 5px 9px;
+  border-radius:24px;border:1px solid;text-decoration:none;
+  white-space:nowrap;transition:filter 0.2s,transform 0.18s;line-height:1;
+}
+.badge:hover{filter:brightness(1.3);transform:translateY(-1px)}
+.badge-lb {color:var(--green);border-color:rgba(74,222,128,0.28);background:rgba(74,222,128,0.07)}
+.badge-sz {color:var(--blue); border-color:rgba(96,165,250,0.28);background:rgba(96,165,250,0.07)}
+.badge-err{color:var(--red);  border-color:rgba(248,113,113,0.28);background:rgba(248,113,113,0.07)}
+.bdot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;animation:pulse 2.2s ease infinite}
+.bdot.dead{animation:none;opacity:0.3}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.2}}
+
+/* ── Main ── */
+main{
+  max-width:1100px;margin:0 auto;
+  padding:0 clamp(12px,4vw,48px) 80px;
+  opacity:0;transition:opacity 0.5s ease 0.1s;
+}
+main.vis{opacity:1}
+
+/*
+ * ══════════════════════════════════════════════
+ * LAYOUT STRATEGY (final, simple)
+ *
+ * .diary-wrap — the ONE scroll container
+ *   overflow-x: auto  (scrolls whole thing on mobile)
+ *   overflow-y: visible (so vertical page scroll works)
+ *
+ * Inside .diary-wrap:
+ *   .diary-inner — min-width forces horizontal scroll on mobile
+ *     col-head
+ *     per entry:
+ *       .row        — 5-col grid, full width of diary-inner
+ *       .dp-panel   — also full width of diary-inner
+ *                     naturally in flow, opens right below row
+ *
+ * On desktop: diary-inner = 100%, no scroll needed
+ * On mobile:  diary-inner = 580px min, whole thing scrolls
+ *             panel is INSIDE diary-inner so it scrolls too ✓
+ *             panel width = 100vw via special CSS trick ✓
+ * ══════════════════════════════════════════════
+ */
+
+.diary-wrap{
+  overflow-x:auto;
+  overflow-y:visible;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:var(--border2) transparent;
+  /* clip only horizontal, let vertical be normal */
+  clip-path:none;
+}
+.diary-wrap::-webkit-scrollbar{height:4px}
+.diary-wrap::-webkit-scrollbar-track{background:transparent}
+.diary-wrap::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+.diary-inner{
+  min-width:100%;
+  width:100%;
+}
+
+/* ── Column header ── */
+.col-head{
+  display:grid;
+  grid-template-columns:100px 56px 1fr 90px 110px;
+  align-items:center;gap:12px;
+  padding:18px 16px 10px;
+  border-bottom:1px solid var(--border2);
+  margin-top:26px;
+}
+.ch{font-size:10px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-3)}
+.ch.r{text-align:right}
+
+/* ── Month separator ── */
+.month-sep{
+  display:flex;align-items:center;gap:12px;
+  padding:24px 16px 8px;
+}
+.ms-label{font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.ms-line{flex:1;height:1px;background:var(--border)}
+.ms-count{font-size:15px;color:var(--text-3);white-space:nowrap}
+
+/* ── Row ── */
+.row{
+  display:grid;
+  grid-template-columns:100px 56px 1fr 90px 110px;
+  align-items:center;gap:12px;
+  min-height:56px;
+  padding:12px 16px;
+  cursor:pointer;
+  transition:background 0.14s;
+  animation:rowIn 0.32s ease both;
+  border-bottom:1px solid var(--border);
+  width:100%;
+}
+.row:hover,.row.expanded{background:var(--hover)}
+@keyframes rowIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+.r-date{font-size:13px;color:var(--text-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.r-type-cell{display:flex;align-items:center}
+.type-pill{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;
+  padding:3px 7px;border-radius:4px;white-space:nowrap;
+}
+.type-film{color:var(--green);border:1px solid rgba(74,222,128,0.20);background:rgba(74,222,128,0.08)}
+.type-tv  {color:var(--blue); border:1px solid rgba(96,165,250,0.20);background:rgba(96,165,250,0.08)}
+
+.r-title-wrap{display:flex;align-items:center;gap:10px;min-width:0}
+.r-title{
+  font-size:14.5px;font-weight:500;color:var(--text-1);
+  line-height:1.4;white-space:normal;word-break:break-word;
+  border-bottom:1px solid transparent;
+  transition:border-color 0.15s,color 0.15s;
+}
+.row:hover .r-title,.row.expanded .r-title{
+  color:var(--accent);border-bottom-color:rgba(200,169,110,0.35);
+}
+.rewatch-pill{
+  flex:0 0 auto;font-size:9px;font-weight:800;letter-spacing:0.8px;
+  text-transform:uppercase;padding:3px 7px;border-radius:4px;white-space:nowrap;
+  color:var(--pill-rew-tx);background:var(--pill-rew-bg);border:1px solid var(--pill-rew-bd);
+}
+.r-year{font-size:13px;color:var(--text-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.r-rating{text-align:right;white-space:nowrap}
+.stars{font-size:14px;color:var(--star);letter-spacing:1.4px}
+.no-rating{font-size:12px;color:var(--text-3)}
+
+/* ══════════════════════════════════════════════
+   DETAIL PANEL
+   In normal flow inside .diary-inner
+   Width = 100% of diary-inner (scrolls with content on mobile)
+   On desktop it fills the full content width perfectly
+══════════════════════════════════════════════ */
+.dp-panel{
+  display:none;
+  width:100%;
+  background:var(--dp-bg);
+  border-top:1px solid var(--border2);
+  border-bottom:1px solid var(--border2);
+}
+.dp-panel.open{
+  display:block;
+  animation:dpSlide 0.28s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes dpSlide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Panel inner layout ── */
+.detail-inner{
+  display:flex;
+  flex-direction:row;
+  gap:28px;
+  padding:24px 20px;
+  align-items:flex-start;
+  width:100%;
+}
+
+/* Poster — fixed width, doesn't grow */
+.dp-poster{
+  width:150px;
+  flex:0 0 150px;
+  border-radius:8px;overflow:hidden;
+  background:var(--bg4);aspect-ratio:2/3;
+  display:flex;align-items:center;justify-content:center;
+}
+.dp-poster img{width:100%;height:100%;object-fit:cover;display:block}
+.dp-poster-ph{font-size:32px;opacity:0.25}
+
+/* Info — takes all remaining space */
+.dp-info{
+  flex:1;
+  min-width:0;
+  display:flex;flex-direction:column;
+}
+
+.dp-title-row{
+  display:flex;align-items:baseline;flex-wrap:wrap;
+  gap:8px;margin-bottom:12px;
+}
+.dp-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;font-size:20px;font-weight:700;
+  color:var(--dp-title-color);line-height:1.25;word-break:break-word;
+}
+.dp-year-badge{
+  font-size:11px;font-weight:700;color:var(--dp-year-color);
+  background:var(--dp-year-bg);border:1px solid var(--dp-year-bd);
+  padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;
+}
+.dp-runtime-badge{
+  font-size:11px;font-weight:700;color:var(--dp-runtime-color);
+  background:var(--dp-runtime-bg);border:1px solid var(--dp-runtime-bd);
+  padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;
+}
+.dp-synopsis{
+  font-size:13.5px;color:var(--text-2);line-height:1.8;margin-bottom:18px;
+  text-align:justify;text-align-last:left;hyphens:auto;
+  overflow-wrap:break-word;word-break:break-word;
+}
+.dp-synopsis.empty{color:var(--text-3);font-style:italic;text-align:left}
+
+.dp-meta{display:flex;flex-direction:column;gap:9px}
+.dp-meta-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:13px}
+.dp-meta-label{
+  color:var(--text-3);font-weight:700;font-size:10px;
+  letter-spacing:0.9px;text-transform:uppercase;
+  white-space:nowrap;min-width:100px;flex-shrink:0;
+}
+.dp-meta-value{color:var(--text-1);line-height:1.5;overflow-wrap:break-word;word-break:break-word;min-width:0}
+
+.genre-list{display:flex;flex-wrap:wrap;gap:6px}
+.genre-tag{
+  font-size:10px;font-weight:600;padding:2px 9px;border-radius:20px;
+  background:rgba(200,169,110,0.10);border:1px solid rgba(200,169,110,0.22);
+  color:var(--accent);white-space:nowrap;
+}
+
+/* ── States ── */
+.loading{padding:110px 0;text-align:center}
+.spin-lg{
+  width:28px;height:28px;border:2px solid var(--border2);border-top-color:var(--accent);
+  border-radius:50%;animation:spin 0.75s linear infinite;margin:0 auto 16px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-txt{font-size:15px;color:var(--text-2)}
+.load-sub{font-size:12px;color:var(--text-3);margin-top:5px}
+.msg-box{
+  margin:90px auto;max-width:420px;background:var(--bg3);
+  border:1px solid var(--border2);border-radius:12px;padding:48px 32px;text-align:center;
+}
+.msg-ico{font-size:28px;margin-bottom:14px}
+.msg-title{font-size:17px;font-weight:600;margin-bottom:8px}
+.msg-body{font-size:13px;color:var(--text-2);line-height:1.9}
+.msg-body code{background:var(--bg4);padding:2px 6px;border-radius:3px;font-size:12px}
+
+.toast{
+  position:fixed;bottom:22px;right:22px;
+  background:#1a1a1a;border:1px solid var(--border2);
+  border-radius:8px;padding:10px 16px;font-size:13px;color:var(--text-2);
+  display:flex;align-items:center;gap:9px;
+  opacity:0;transform:translateY(6px);transition:opacity 0.3s,transform 0.3s;
+  pointer-events:none;z-index:500;max-width:260px;
+}
+.toast.show{opacity:1;transform:translateY(0)}
+.t-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.5s ease infinite}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+
+/* Desktop large */
+@media(min-width:1200px){
+  .col-head,.row{grid-template-columns:130px 60px 1fr 130px 140px}
+  .r-title{font-size:15px}
+}
+
+/* Desktop medium */
+@media(min-width:900px) and (max-width:1199px){
+  .col-head,.row{grid-template-columns:110px 60px 1fr 110px 120px}
+}
+
+/* Tablet */
+@media(min-width:641px) and (max-width:899px){
+  .col-head,.row{grid-template-columns:90px 52px 1fr 85px 100px}
+  .dp-poster{width:120px;flex:0 0 120px}
+  .dp-title{font-size:18px}
+}
+
+/* Mobile */
+@media(max-width:640px){
+  header{height:54px;padding:0 14px}
+  .logo{font-size:16px}
+  .entry-count{display:none}
+  .badge{font-size:11px;padding:4px 10px 4px 8px}
+  .bdot{width:6px;height:6px}
+  main{padding:0 0 60px}
+
+  /*
+   * Force diary-inner to be wider than screen
+   * so the whole thing scrolls horizontally as one unit.
+   * Panel inside diary-inner → scrolls with it too.
+   */
+  .diary-inner{
+    min-width:580px;
+  }
+
+  .col-head,.row{
+    grid-template-columns:80px 46px 1fr 70px 88px;
+    gap:10px;padding-left:14px;padding-right:14px;
+  }
+  .col-head{padding-top:12px;padding-bottom:8px;margin-top:16px}
+  .month-sep{padding:18px 14px 6px}
+  .row{min-height:48px;padding-top:10px;padding-bottom:10px}
+  .r-date{font-size:11.5px}
+  .r-title{font-size:13.5px}
+  .r-year{font-size:11.5px}
+  .stars{font-size:12px}
+
+  /* Panel on mobile — stack vertically */
+  .detail-inner{
+    flex-direction:column;
+    gap:16px;
+    padding:16px 14px;
+  }
+  .dp-poster{
+    width:110px;flex:none;
+    margin:0 auto;
+  }
+  .dp-title{font-size:16px}
+  .dp-synopsis{font-size:12.5px}
+  .dp-meta-label{min-width:80px;font-size:9.5px}
+  .dp-meta-row{font-size:12px}
+
+  .toast{bottom:12px;right:12px;left:12px;max-width:none}
+}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <div class="intro-text">Tharun's&nbsp;<em>Diary</em></div>
+</div>
+
+<div class="toast" id="toast">
+  <span class="t-dot"></span>
+  <span id="toastMsg">Refreshing…</span>
+</div>
+
+<header id="hdr">
+  <div class="logo">Tharun's&nbsp;<em>Diary</em></div>
+  <div class="hdr-right">
+    <span class="entry-count" id="countEl">—</span>
+    <a class="badge badge-lb" id="badgeLB"
+       href="https://letterboxd.com/a__tharun/diary/"
+       target="_blank" rel="noopener noreferrer">
+      <span class="bdot" id="dotLB"></span>
+      <span class="badge-label">Letterboxd</span>
+    </a>
+    <a class="badge badge-sz" id="badgeSZ"
+       href="https://www.serializd.com/user/tharun123/diary"
+       target="_blank" rel="noopener noreferrer">
+      <span class="bdot" id="dotSZ"></span>
+      <span class="badge-label">Serializd</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  <!--
+    .diary-wrap  = ONE horizontal scroll container
+    .diary-inner = min-width forces scroll on mobile
+    Everything inside scrolls together as one unit
+  -->
+  <div class="diary-wrap">
+    <div class="diary-inner" id="diaryInner">
+
+      <div class="col-head">
+        <span class="ch">Date</span>
+        <span class="ch">Type</span>
+        <span class="ch">Title</span>
+        <span class="ch">Released</span>
+        <span class="ch r">Rating</span>
+      </div>
+
+      <div id="diary">
+        <div class="loading">
+          <div class="spin-lg"></div>
+          <div class="load-txt">Loading diary…</div>
+          <div class="load-sub">Fetching entries</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+'use strict';
+
+const $   = id => document.getElementById(id);
+const pad = n  => String(n).padStart(2,'0');
+
+function fmtDate(s){
+  if(!s) return '—';
+  const p=s.split('-').map(Number);
+  if(p.length<3||p.some(isNaN)) return s;
+  return `${pad(p[2])}/${pad(p[1])}/${p[0]}`;
+}
+function monthKey(s){
+  if(!s) return 'Undated';
+  const [y,m]=s.split('-').map(Number);
+  if(!y||!m) return 'Undated';
+  const N=['January','February','March','April','May','June',
+           'July','August','September','October','November','December'];
+  return `${N[m-1]} ${y}`;
+}
+function toStars(r){
+  if(r==null||r==='') return '';
+  const v=parseFloat(r);
+  if(isNaN(v)||v<=0) return '';
+  return '★'.repeat(Math.floor(v))+((v%1)>=0.4?'½':'');
+}
+function esc(s){
+  return String(s??'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function hasVal(v){
+  if(v===null||v===undefined||v==='') return false;
+  if(Array.isArray(v)&&v.length===0) return false;
+  return true;
+}
+
+let _tt=null;
+function showToast(msg,ms=0){
+  $('toastMsg').textContent=msg;
+  $('toast').classList.add('show');
+  if(_tt){clearTimeout(_tt);_tt=null;}
+  if(ms>0) _tt=setTimeout(()=>$('toast').classList.remove('show'),ms);
+}
+
+function runIntro(){
+  return new Promise(resolve=>{
+    setTimeout(()=>{
+      $('intro').classList.add('fade-out');
+      setTimeout(()=>{
+        $('intro').style.display='none';
+        $('hdr').classList.add('vis');
+        $('main').classList.add('vis');
+        resolve();
+      },560);
+    },1750);
+  });
+}
+
+function badgeOK(id){
+  const b=$('badge'+id);if(!b)return;
+  b.classList.remove('badge-err');
+  b.classList.add(id==='LB'?'badge-lb':'badge-sz');
+  $('dot'+id)?.classList.remove('dead');
+}
+function badgeErr(id){
+  const b=$('badge'+id);if(!b)return;
+  b.classList.remove('badge-lb','badge-sz');
+  b.classList.add('badge-err');
+  $('dot'+id)?.classList.add('dead');
+}
+
+/* ── Build panel HTML ── */
+function buildPanel(entry){
+  const d=entry.details||{};
+  const isTV=entry.type==='tv';
+  const ph=isTV?'📺':'🎬';
+
+  const posterHTML=d.poster
+    ?`<img src="${esc(d.poster)}" alt="${esc(entry.title)}" loading="lazy"
+           onerror="this.parentElement.innerHTML='<span class=dp-poster-ph>${ph}</span>'">`
+    :`<span class="dp-poster-ph">${ph}</span>`;
+
+  const synHTML=hasVal(d.synopsis)
+    ?`<p class="dp-synopsis">${esc(d.synopsis)}</p>`
+    :`<p class="dp-synopsis empty">No synopsis available.</p>`;
+
+  const yearBadge=hasVal(entry.year)
+    ?`<span class="dp-year-badge">${esc(entry.year)}</span>`:'';
+  const rtBadge=(!isTV&&hasVal(d.runtime))
+    ?`<span class="dp-runtime-badge">⏱ ${esc(d.runtime)}</span>`:'';
+
+  function metaRow(label,value){
+    if(!hasVal(value)) return '';
+    let val='';
+    if(label==='Genre'&&Array.isArray(value)){
+      val=`<div class="genre-list">
+        ${value.map(g=>`<span class="genre-tag">${esc(g)}</span>`).join('')}
+      </div>`;
+    } else if(Array.isArray(value)){
+      val=`<span class="dp-meta-value">${value.map(esc).join(', ')}</span>`;
+    } else {
+      val=`<span class="dp-meta-value">${esc(value)}</span>`;
+    }
+    return `<div class="dp-meta-row">
+      <span class="dp-meta-label">${label}</span>${val}
+    </div>`;
+  }
+
+  let meta='<div class="dp-meta">';
+  if(isTV&&hasVal(d.created_by)) meta+=metaRow('Created by',d.created_by);
+  if(isTV){
+    const dirs=Array.isArray(d.director)?d.director.slice(0,3):[];
+    meta+=metaRow('Directed by',dirs);
+  } else {
+    meta+=metaRow('Directed by',d.director);
+  }
+  meta+=metaRow('Genre',d.genres);
+  meta+=metaRow('Cast',Array.isArray(d.cast)?d.cast.slice(0,3):[]);
+  meta+=metaRow('Music by',d.music);
+  meta+='</div>';
+
+  return `
+    <div class="detail-inner">
+      <div class="dp-poster">${posterHTML}</div>
+      <div class="dp-info">
+        <div class="dp-title-row">
+          <span class="dp-title">${esc(entry.title)}</span>
+          ${yearBadge}${rtBadge}
+        </div>
+        ${synHTML}
+        ${meta}
+      </div>
+    </div>`;
+}
+
+/* ══════════════════════════════════════════════
+   RENDER
+   Structure inside #diary (inside .diary-inner):
+     .month-sep
+     .row          ← click to open
+     .dp-panel     ← opens right below row, in flow
+     .row
+     .dp-panel
+     ...
+   Everything in one scrollable unit on mobile.
+══════════════════════════════════════════════ */
+let _activeRow  = null;
+let _activePanel= null;
+
+function closeActive(){
+  if(_activeRow)  _activeRow.classList.remove('expanded');
+  if(_activePanel){_activePanel.classList.remove('open');_activePanel.innerHTML='';}
+  _activeRow=null;_activePanel=null;
+}
+
+function renderEntries(entries){
+  const diary=$('diary');
+
+  if(!entries.length){
+    diary.innerHTML=`
+      <div class="msg-box">
+        <div class="msg-ico">📭</div>
+        <div class="msg-title">No entries found</div>
+        <div class="msg-body">Check your Letterboxd &amp; Serializd profiles.</div>
+      </div>`;
+    return;
+  }
+
+  const groups=new Map(),order=[];
+  for(const e of entries){
+    const mk=monthKey(e.watched_date);
+    if(!groups.has(mk)){groups.set(mk,[]);order.push(mk);}
+    groups.get(mk).push(e);
+  }
+
+  diary.innerHTML='';
+
+  for(const mk of order){
+    const grp=groups.get(mk);
+
+    /* Month separator */
+    const sep=document.createElement('div');
+    sep.className='month-sep';
+    sep.innerHTML=`
+      <span class="ms-label">${mk}</span>
+      <span class="ms-line"></span>
+      <span class="ms-count">${grp.length}</span>`;
+    diary.appendChild(sep);
+
+    for(const e of grp){
+      const isTV =e.type==='tv';
+      const isRew=!!e.rewatch;
+      const stars=toStars(e.rating);
+
+      /* Row */
+      const row=document.createElement('div');
+      row.className='row';
+      row.innerHTML=`
+        <div class="r-date">${fmtDate(e.watched_date)}</div>
+        <div class="r-type-cell">
+          <span class="type-pill ${isTV?'type-tv':'type-film'}">
+            ${isTV?'TV':'Film'}
+          </span>
+        </div>
+        <div class="r-title-wrap">
+          <div class="r-title">${esc(e.title)}</div>
+          ${isRew?`<span class="rewatch-pill">REWATCH</span>`:''}
+        </div>
+        <div class="r-year">${esc(e.year||'—')}</div>
+        <div class="r-rating">
+          ${stars
+            ?`<span class="stars" title="${e.rating}/5">${stars}</span>`
+            :`<span class="no-rating">—</span>`}
+        </div>`;
+
+      /* Panel — immediately after row in DOM */
+      const panel=document.createElement('div');
+      panel.className='dp-panel';
+
+      diary.appendChild(row);
+      diary.appendChild(panel);
+
+      /* Click */
+      row.addEventListener('click',()=>{
+        const isSame=(_activeRow===row);
+        closeActive();
+        if(!isSame){
+          row.classList.add('expanded');
+          panel.classList.add('open');
+          panel.innerHTML=buildPanel(e);
+          _activeRow=row;
+          _activePanel=panel;
+        }
+      });
+    }
+  }
+}
+
+/* ── Poll ── */
+let _poll=null,_lastCount=0;
+function startPoll(){
+  if(_poll) return;
+  _poll=setInterval(async()=>{
+    try{
+      const sd=await fetch('/api/status').then(r=>r.json());
+      if(!sd.refreshing){
+        clearInterval(_poll);_poll=null;
+        const n=(sd.lb_count||0)+(sd.sz_count||0);
+        if(n!==_lastCount){
+          showToast('New entries — reloading…');
+          setTimeout(()=>location.reload(),1000);
+        } else {
+          showToast('Up to date ✓',2500);
+        }
+      }
+    }catch{clearInterval(_poll);_poll=null;}
+  },3000);
+}
+
+/* ── Init ── */
+async function init(){
+  const[,apiRes]=await Promise.allSettled([
+    runIntro(),
+    fetch('/api/diary').then(r=>r.json()),
+  ]);
+
+  if(apiRes.status==='rejected'){
+    badgeErr('LB');badgeErr('SZ');
+    $('diary').innerHTML=`
+      <div class="msg-box">
+        <div class="msg-ico">⚠️</div>
+        <div class="msg-title">Server not running</div>
+        <div class="msg-body">
+          Build cache first:<br>
+          <code>py fetch_letterboxd.py</code><br>
+          <code>py fetch_serializd.py</code><br><br>
+          Then: <code>py server.py</code>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const data=apiRes.value;
+  _lastCount=data.count||0;
+
+  (data.lb_count>0)?badgeOK('LB'):badgeErr('LB');
+  (data.sz_count>0)?badgeOK('SZ'):badgeErr('SZ');
+  $('countEl').textContent=`${(data.lb_count||0)+(data.sz_count||0)} entries`;
+
+  renderEntries(data.entries||[]);
+  if(data.refreshing){showToast('Updating in background…');startPoll();}
+}
+
+init();
+</script>
+</body>
+</html>

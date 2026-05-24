@@ -1,0 +1,250 @@
+[
+  {
+    "id": "63590132",
+    "title": "The Copenhagen Test",
+    "year": "2025",
+    "rating": 3.5,
+    "watched_date": "2026-04-19",
+    "type": "tv",
+    "source": "serializd",
+    "show_id": 246412,
+    "tmdb_id": null,
+    "details": {
+      "poster": "https://image.tmdb.org/t/p/w342/iAjcpCceLixP5k9lRw1y4fhsLwV.jpg",
+      "synopsis": "When an analyst discovers his eyes and ears have been hacked, he's drawn into a controlled world designed by his agency to draw out their enemies.",
+      "genres": [
+        "Action & Adventure",
+        "Mystery",
+        "Sci-Fi & Fantasy"
+      ],
+      "created_by": [
+        "Thomas Brandon"
+      ],
+      "director": [],
+      "cast": [
+        "Simu Liu",
+        "Melissa Barrera",
+        "Sinclair Daniel"
+      ],
+      "music": "Nathan Micay",
+      "runtime": null
+    }
+  },
+  {
+    "id": "63589862",
+    "title": "A Knight of the Seven Kingdoms",
+    "year": "2026–2026",
+    "rating": 4.0,
+    "watched_date": "2026-03-20",
+    "type": "tv",
+    "source": "serializd",
+    "show_id": 224372,
+    "tmdb_id": null,
+    "details": {
+      "poster": "https://image.tmdb.org/t/p/w342/k8yARbD9iYn2nRX2HvsopfKDN2r.jpg",
+      "synopsis": "A century before the events of Game of Thrones, two unlikely heroes wandered Westeros: a young, naive but courageous knight, Ser Duncan the Tall, and his diminutive squire, Egg. Set in an age when the Targaryen line still holds the Iron Throne and the last dragon has not yet passed from living memory, great destinies, powerful foes, and dangerous exploits await these improbable and incomparable friends.",
+      "genres": [
+        "Drama",
+        "Sci-Fi & Fantasy",
+        "Action & Adventure"
+      ],
+      "created_by": [
+        "George R.R. Martin",
+        "Ira Parker"
+      ],
+      "director": [],
+      "cast": [
+        "Peter Claffey",
+        "Dexter Sol Ansell"
+      ],
+      "music": "Dan Romer",
+      "runtime": null
+    }
+  },
+  {
+    "id": "63589894",
+    "title": "Task",
+    "year": "2025–2026",
+    "rating": 3.5,
+    "watched_date": "2026-03-28",
+    "type": "tv",
+    "source": "serializd",
+    "show_id": 228305,
+    "tmdb_id": null,
+    "details": {
+      "poster": "https://image.tmdb.org/t/p/w342/9JdL1aQdAQiyYYQ2xCqbHaEcZt8.jpg",
+      "synopsis": "In the working-class suburbs of Philadelphia, an FBI agent heads a task force assembled to put an end to a string of violent robberies led by an unsuspecting family man.",
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
+      "created_by": [
+        "Brad Ingelsby"
+      ],
+      "director": [],
+      "cast": [
+        "Mark Ruffalo",
+        "Tom Pelphrey",
+        "Emilia Jones"
+      ],
+      "music": "Dan Deacon",
+      "runtime": null
+    }
+  },
+  {
+    "id": "64292152",
+    "title": "The Haunting of Hill House",
+    "year": "2018",
+    "rating": 5.0,
+    "watched_date": "2026-05-01",
+    "type": "tv",
+    "source": "serializd",
+    "show_id": 72844,
+    "tmdb_id": null,
+    "details": {
+      "poster": "https://image.tmdb.org/t/p/w342/38PkhBGRQtmVx2drvPik3F42qHO.jpg",
+      "synopsis": "Flashing between past and present, a fractured family confronts haunting memories of their old home and the terrifying events that drove them from it.",
+      "genres": [
+        "Mystery",
+        "Drama"
+      ],
+      "created_by": [
+        "Mike Flanagan"
+      ],
+      "director": [],
+      "cast": [
+        "Michiel Huisman",
+        "Elizabeth Reaser",
+        "Kate Siegel"
+      ],
+      "music": "Taylor Stewart",
+      "runtime": null
+    }
+  },
+  {
+    "id": "63590010",
+    "title": "Tehran",
+    "year": "2020–2026",
+    "rating": 4.5,
+    "watched_date": "2026-04-09",
+    "type": "tv",
+    "source": "serializd",
+    "show_id": 103913,
+    "tmdb_id": null,
+    "details": {
+      "poster": "https://image.tmdb.org/t/p/w342/2KWsTNaKpzxuxUnRFU3cZ1WleQC.jpg",
+      "synopsis": "Tamar is a Mossad hacker-agent who infiltrates Tehran under a false identity to help destroy Iran's nuclear reactor. But when her mission fails, Tamar must plan an operation that will place everyone dear to her in jeopardy.",
+      "genres": [
+        "Drama"
+      ],
+      "created_by": [
+        "Dana Eden",
+        "Moshe Zonder",
+        "Maor Kohn",
+        "Daniel Syrkin"
+      ],
+      "director": [],
+      "cast": [
+        "Niv Sultan",
+        "Shaun Toub",
+        "Shervin Alenabi"
+      ],
+      "music": null,
+      "runtime": null
+    }
+  },
+  {
+    "id": "63589585",
+    "title": "The Spy",
+    "year": "2019",
+    "rating": 5.0,
+    "watched_date": "2026-01-02",
+    "type": "tv",
+    "source": "serializd",
+    "show_id": 91725,
+    "tmdb_id": null,
+    "details": {
+      "poster": "https://image.tmdb.org/t/p/w342/bCGC6cAEKzm45J7SPsApAnp9mNx.jpg",
+      "synopsis": "In the 1960s, Israeli clerk-turned-secret agent Eli Cohen goes deep undercover inside Syria on a perilous, years-long mission to spy for Mossad.",
+      "genres": [
+        "Drama"
+      ],
+      "created_by": [
+        "Gideon Raff"
+      ],
+      "director": [],
+      "cast": [
+        "Sacha Baron Cohen",
+        "Noah Emmerich",
+        "Hadar Ratzon Rotem"
+      ],
+      "music": "Guillaume Roussel",
+      "runtime": null
+    }
+  },
+  {
+    "id": "66032429",
+    "title": "Person of Interest",
+    "year": "2011–2016",
+    "rating": 5.0,
+    "watched_date": "2026-05-17",
+    "type": "tv",
+    "source": "serializd",
+    "show_id": 1411,
+    "tmdb_id": null,
+    "details": {
+      "poster": "https://image.tmdb.org/t/p/w342/f8aIvYk5h7Z8EP3dinCmVgQFYow.jpg",
+      "synopsis": "John Reese, former CIA paramilitary operative, is presumed dead and teams up with reclusive billionaire Finch to prevent violent crimes in New York City by initiating their own type of justice. With the special training that Reese has had in Covert Operations and Finch's genius software inventing mind, the two are a perfect match for the job that they have to complete. With the help of surveillance equipment, they work \"outside the law\" and get the right criminal behind bars.",
+      "genres": [
+        "Drama",
+        "Action & Adventure",
+        "Crime",
+        "Sci-Fi & Fantasy"
+      ],
+      "created_by": [
+        "Jonathan Nolan"
+      ],
+      "director": [],
+      "cast": [
+        "Jim Caviezel",
+        "Michael Emerson",
+        "Kevin Chapman"
+      ],
+      "music": "Ramin Djawadi",
+      "runtime": null
+    }
+  },
+  {
+    "id": "64475191",
+    "title": "If Wishes Could Kill",
+    "year": "2026",
+    "rating": 4.5,
+    "watched_date": "2026-05-03",
+    "type": "tv",
+    "source": "serializd",
+    "show_id": 285838,
+    "tmdb_id": null,
+    "details": {
+      "poster": "https://image.tmdb.org/t/p/w342/2CfTNVaR8kZQkWtWWE3Cntaiq33.jpg",
+      "synopsis": "A mysterious app promises wishes — then starts a countdown to death. As a group of teens becomes entangled, they must break the deadly chain to survive.",
+      "genres": [
+        "Mystery",
+        "Drama"
+      ],
+      "created_by": [
+        "Park Joong-seop",
+        "Park Yoon-seo"
+      ],
+      "director": [
+        "Park Yoon-seo"
+      ],
+      "cast": [
+        "Jeon So-young",
+        "Baek Sun-ho",
+        "Kang Mi-na"
+      ],
+      "music": null,
+      "runtime": null
+    }
+  }
+]
