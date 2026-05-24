@@ -3,9 +3,10 @@ services:
     name: diary
     runtime: docker
     dockerfilePath: ./Dockerfile
-    buildCommand: bash build.sh
     envVars:
       - key: PORT
         value: 10000
       - key: PLAYWRIGHT_BROWSERS_PATH
         value: /ms-playwright
+      - key: RENDER
+        value: "true"
