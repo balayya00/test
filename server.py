@@ -5,7 +5,7 @@ import secrets
 from functools import wraps
 
 app = Flask(__name__, static_folder='.')
-CORS(app, origins=['http://localhost:10000', 'https://diary.onrender.com'])
+CORS(app, origins=['*'])  # Render needs this
 
 _SERVER_SECRET = secrets.token_hex(32)
 _rate_store: dict = {}
@@ -40,7 +40,6 @@ LB_JSON    = 'letterboxd_cache.json'
 SZ_JSON    = 'serializd_cache.json'
 DIARY_META = 'diary_meta.json'
 
-# Only these static files are served
 ALLOWED_STATIC = {'index.html', 'favicon.ico'}
 
 _refresh_lock  = threading.Lock()
@@ -103,7 +102,14 @@ def combined_diary():
     return merged
 
 def _run_fetchers():
+    """
+    Run fetchers in-process.
+    Letterboxd: RSS + TMDB (works fine on Render).
+    Serializd: Playwright scraper — may fail on Render free tier,
+               falls back to existing cache gracefully.
+    """
     import importlib.util
+
     def load_mod(path):
         spec = importlib.util.spec_from_file_location('_fetcher', path)
         mod  = importlib.util.module_from_spec(spec)
@@ -113,12 +119,14 @@ def _run_fetchers():
     print('  Running fetch_letterboxd…')
     try:
         load_mod('fetch_letterboxd.py').fetch_letterboxd()
+        print('  fetch_letterboxd done')
     except Exception as e:
         print(f'  fetch_letterboxd error: {e}')
 
     print('  Running fetch_serializd…')
     try:
         load_mod('fetch_serializd.py').fetch_serializd()
+        print('  fetch_serializd done')
     except Exception as e:
         print(f'  fetch_serializd error: {e}')
 
@@ -153,19 +161,30 @@ def set_security_headers(response):
     response.headers['X-XSS-Protection']        = '1; mode=block'
     response.headers['Referrer-Policy']         = 'strict-origin-when-cross-origin'
 
-    # ── CSP: allow everything the app actually needs ──────────────────────────
-    # plausible.io was being blocked — removed it, we don't use it
-    # TMDB images + Letterboxd images both need to be in img-src
-    # Google Fonts needs style-src + font-src
+    # ── CSP ──────────────────────────────────────────────────────────────────
+    # plausible.io is injected by Render's platform — must be explicitly allowed
+    # script-src-elem must be set explicitly (not just script-src fallback)
     response.headers['Content-Security-Policy'] = (
         "default-src 'self'; "
+
+        # Scripts: self + inline (for our JS) + plausible (Render injects this)
+        "script-src 'self' 'unsafe-inline' https://plausible.io; "
+        "script-src-elem 'self' 'unsafe-inline' https://plausible.io; "
+
+        # Styles: self + inline + Google Fonts
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+
+        # Fonts: Google Fonts CDN
         "font-src 'self' https://fonts.gstatic.com; "
+
+        # Images: TMDB posters + Letterboxd posters + data URIs
         "img-src 'self' https://image.tmdb.org https://a.ltrbxd.com "
         "https://img.youtube.com data: blob:; "
-        "script-src 'self' 'unsafe-inline'; "
-        "script-src-elem 'self' 'unsafe-inline'; "   # ← explicit so no fallback issues
-        "connect-src 'self'; "
+
+        # API calls: self only
+        "connect-src 'self' https://plausible.io; "
+
+        # Block everything else
         "frame-src 'none'; "
         "object-src 'none'; "
         "base-uri 'self';"
@@ -183,10 +202,7 @@ def index():
 
 @app.route('/favicon.ico')
 def favicon():
-    """
-    Return a minimal inline SVG favicon so browser stops 404-ing.
-    No file needed on disk.
-    """
+    """Inline SVG favicon — no file needed on disk."""
     svg = (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
         '<rect width="32" height="32" rx="6" fill="#0d0d0d"/>'
@@ -194,8 +210,11 @@ def favicon():
         'font-family="Georgia,serif" fill="#c8a96e" font-style="italic">T</text>'
         '</svg>'
     )
-    return Response(svg, mimetype='image/svg+xml',
-                    headers={'Cache-Control': 'public, max-age=86400'})
+    return Response(
+        svg,
+        mimetype='image/svg+xml',
+        headers={'Cache-Control': 'public, max-age=86400'}
+    )
 
 @app.route('/api/diary')
 @rate_limit(max_calls=30, window=60)
@@ -226,6 +245,42 @@ def status():
         'total':        lb_c + sz_c,
     })
 
+@app.route('/api/refresh/serializd')
+def force_refresh_serializd():
+    """
+    Manual trigger endpoint — call this from browser or curl
+    to force a Serializd refresh: GET /api/refresh/serializd
+    """
+    if _is_refreshing:
+        return jsonify({'status': 'already refreshing'}), 200
+
+    def _just_sz():
+        global _is_refreshing
+        with _refresh_lock:
+            if _is_refreshing:
+                return
+            _is_refreshing = True
+        try:
+            import importlib.util
+            spec = importlib.util.spec_from_file_location(
+                '_fetcher', 'fetch_serializd.py')
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            mod.fetch_serializd()
+            m = read_meta()
+            m['last_refresh'] = time.time()
+            write_meta(m)
+            print('Manual Serializd refresh complete')
+        except Exception as e:
+            print(f'Manual Serializd refresh error: {e}')
+        finally:
+            with _refresh_lock:
+                _is_refreshing = False
+
+    t = threading.Thread(target=_just_sz, daemon=True)
+    t.start()
+    return jsonify({'status': 'serializd refresh triggered'}), 200
+
 @app.route('/<path:path>')
 def static_files(path):
     if path not in ALLOWED_STATIC:
@@ -243,7 +298,6 @@ def too_many(e):     return jsonify({'error': 'rate limited'}), 429
 @app.errorhandler(500)
 def server_error(e): return jsonify({'error': 'internal server error'}), 500
 
-# ── Startup ───────────────────────────────────────────────────────────────────
 if __name__ == '__main__':
     has_lb = os.path.exists(LB_PKL) or os.path.exists(LB_JSON)
     has_sz = os.path.exists(SZ_PKL) or os.path.exists(SZ_JSON)
